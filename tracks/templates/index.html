@@ -2,77 +2,12 @@
 <html>
   <head>
     <title>Popular Tracks App</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        padding: 0;
-      }
-
-      h1 {
-        margin-bottom: 20px;
-      }
-
-      label {
-        font-weight: bold;
-        margin-right: 10px;
-      }
-
-      select {
-        margin-right: 10px;
-      }
-
-      button {
-        padding: 5px 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-      }
-
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-top: 20px;
-      }
-
-      th,
-      td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-
-      th {
-        background-color: #f2f2f2;
-      }
-
-      img {
-        max-width: 100px;
-      }
-
-      a {
-        color: #007bff;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      /* Add styles for popularity cell */
-      .popularity-cell {
-        background-color: #f2f2f2;
-        border-radius: 5px;
-        padding: 8px 12px;
-        text-align: center;
-      }
-
-      /* Add styles for preview cell */
-      .preview-cell {
-        text-align: center;
-      }
-    </style>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
   </head>
   <body>
     <h1>Popular Tracks App</h1>
@@ -103,80 +38,6 @@
       </thead>
       <tbody id="tracksBody"></tbody>
     </table>
-
-    <script>
-      function getTracks() {
-        const genre = document.getElementById("genre").value;
-        fetch(`/tracks/${genre}`)
-          .then((response) => response.json())
-          .then((data) => displayTracks(data))
-          .catch((error) => console.error("Error:", error));
-      }
-
-      function displayTracks(tracks) {
-        const tableBody = document.getElementById("tracksBody");
-        tableBody.innerHTML = "";
-
-        for (const track of tracks) {
-          const row = document.createElement("tr");
-
-          const artistCell = document.createElement("td");
-          artistCell.textContent = track.artist;
-
-          const trackCell = document.createElement("td");
-          trackCell.textContent = track.track;
-
-          const popularityCell = document.createElement("td");
-          popularityCell.className = "popularity-cell";
-          popularityCell.textContent = track.popularity + "%";
-          popularityCell.style.backgroundColor = getPopularityColor(
-            track.popularity
-          );
-
-          const albumCoverCell = document.createElement("td");
-          const albumCoverImage = document.createElement("img");
-          albumCoverImage.src = track.album_image_url;
-          albumCoverImage.alt = `${track.artist} - ${track.track}`;
-          albumCoverCell.appendChild(albumCoverImage);
-
-          const previewCell = document.createElement("td");
-          previewCell.className = "preview-cell";
-
-          if (track.preview_url) {
-            const previewLink = document.createElement("a");
-            previewLink.textContent = "Preview";
-            previewLink.href = track.preview_url;
-            previewCell.appendChild(previewLink);
-          } else {
-            // If preview URL doesn't exist, display a tilde (~) to indicate absence
-            previewCell.textContent = "~";
-          }
-
-          row.appendChild(artistCell);
-          row.appendChild(trackCell);
-          row.appendChild(popularityCell);
-          row.appendChild(albumCoverCell);
-          row.appendChild(previewCell);
-
-          tableBody.appendChild(row);
-        }
-      }
-      function getPopularityColor(popularity) {
-        // Calculate RGB values for the color gradient (from red to green)
-        const minPopularity = 0;
-        const maxPopularity = 100;
-        const red = 255;
-        const green = 0;
-        const blue = 0;
-
-        const normalizedPopularity =
-          (popularity - minPopularity) / (maxPopularity - minPopularity);
-        const r = Math.round(red + normalizedPopularity * (green - red));
-        const g = Math.round(green - normalizedPopularity * (green - red));
-        const b = blue;
-
-        return `rgb(${r},${g},${b})`;
-      }
-    </script>
+    <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>

@@ -21,5 +21,5 @@ from tracks.views import tracks_by_genre, index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tracks/<str:genre>', tracks_by_genre, name='tracks'),
-    path('', index, name='index')
+    path('tracks/', index, name='index'),
 ]

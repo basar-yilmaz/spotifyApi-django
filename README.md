@@ -41,6 +41,12 @@ Response Content-Type: application/json
 
 ## Frontend Component
 
+
+```
+http://127.0.0.1:8000/tracks
+```
+
+
 ### Visualization
 
 - The popular tracks will be displayed in a table.

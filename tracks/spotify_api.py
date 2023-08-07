@@ -1,7 +1,11 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-SPOTIFY_CLIENT_ID = 'ec4cf09689134efe8022de792f1af144'
-SPOTIFY_CLIENT_SECRET = 'ac0d7c1d456a4ec3a088e1a99090202c'
+load_dotenv()
+
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
 
 def get_spotify_access_token():
     auth_url = 'https://accounts.spotify.com/api/token'

@@ -4,13 +4,18 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .spotify_api import get_spotify_access_token
 import json
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
 
 def index(request):
     return render(request, 'index.html')
 
 
-SPOTIFY_CLIENT_ID = 'ec4cf09689134efe8022de792f1af144'
-SPOTIFY_CLIENT_SECRET = 'ac0d7c1d456a4ec3a088e1a99090202c'
 
 
 def get_random_artist(genre):
